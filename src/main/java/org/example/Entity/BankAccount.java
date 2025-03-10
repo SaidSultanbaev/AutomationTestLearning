@@ -48,7 +48,7 @@ public class BankAccount {
     public void withdraw(double amount) {
         if (amount > balance) {
             System.out.println("Not enough balance! Available: " + balance);
-        } else if (amount > 0) {
+        } else if (amount > 0 && amount <= balance) {
             this.balance -= amount;
             System.out.println("Withdrawn: " + amount);
             transactions.add(new Transaction("Withdrawn", amount));

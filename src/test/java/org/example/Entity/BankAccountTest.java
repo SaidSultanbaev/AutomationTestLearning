@@ -1,5 +1,6 @@
 package org.example.Entity;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -41,4 +42,49 @@ public class BankAccountTest {
         assertEquals(2000, sender.getBalance());
         assertEquals(2000, receiver.getBalance());
     }
+
+    @Test
+    @DisplayName("Deposit Positive Amount")
+    void depositPositiveAmount() {
+        BankAccount account = new BankAccount("Alice", 1000);
+        account.deposit(500);
+
+        assertEquals(1500, account.getBalance());
+    }
+
+    @Test
+    @DisplayName("Deposit Negative Amount")
+    void depositNegativeAmount() {
+        BankAccount account = new BankAccount("Alice", 1000);
+        account.deposit(-200);
+
+        assertEquals(1000, account.getBalance(), "Баланс не должен измениться");
+    }
+
+    @Test
+    @DisplayName("Successful Transfer")
+    void successfulTransfer() {
+        BankAccount alice = new BankAccount("Alice", 2000);
+        BankAccount alex = new BankAccount("Alex", 3000);
+
+        alice.transfer(alex, 800);
+
+        assertEquals(1200, alice.getBalance());
+        assertEquals(3800, alex.getBalance());
+    }
+
+
+    @Test
+    @DisplayName("Transfer More Than Balance")
+    void transferMoreThanBalance() {
+        BankAccount alice = new BankAccount("Alice", 5000);
+        BankAccount bob = new BankAccount("Bob", 1000);
+
+        alice.transfer(bob, 6000);
+
+        assertEquals(5000, alice.getBalance(), "Баланс не должен менятся");
+        assertEquals(1000, bob.getBalance(), "Не должно быть пополнения");
+    }
 }
+
+
