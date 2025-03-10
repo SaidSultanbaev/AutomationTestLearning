@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'application'
+    id("io.qameta.allure") version "2.11.2"
 }
 
 group = 'org.example'
@@ -20,6 +21,7 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter'
     // RestAssured для API-тестов
     implementation 'io.rest-assured:rest-assured:5.3.0'
+    
 
     // Appium для мобильного тестирования
     implementation 'io.appium:java-client:8.5.1'
