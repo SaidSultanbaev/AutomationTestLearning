@@ -3,9 +3,9 @@ package org.example.Service;
 import org.example.Bank.Model.BankAccount;
 import org.example.Bank.Repository.BankRepository;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
@@ -19,14 +19,15 @@ public class BankServiceTest {
     @Mock
     private BankRepository bankRepository;
 
-    private BankService bankService;  // Убираем @InjectMocks
+    private BankService bankService;  // No @InjectMocks
 
     @BeforeEach
     void setUp() {
-        bankService = new BankService(bankRepository);  // Создаём BankService вручную
+        bankService = new BankService(bankRepository);
     }
 
     @Test
+    @DisplayName("Should successfully create a new bank account")
     void shouldCreateAccountSuccessfully() {
         BankAccount newAccount = new BankAccount("1", "Alice", 1000);
         doNothing().when(bankRepository).save(any(BankAccount.class));
@@ -41,6 +42,7 @@ public class BankServiceTest {
     }
 
     @Test
+    @DisplayName("Should deposit money successfully")
     void shouldDepositMoneySuccessfully() {
         BankAccount alice = new BankAccount("1", "Alice", 1000);
         when(bankRepository.findById("1")).thenReturn(Optional.of(alice));
@@ -52,6 +54,7 @@ public class BankServiceTest {
     }
 
     @Test
+    @DisplayName("Should withdraw money successfully")
     void shouldWithdrawMoneySuccessfully() {
         BankAccount alice = new BankAccount("1", "Alice", 1000);
         when(bankRepository.findById("1")).thenReturn(Optional.of(alice));
@@ -63,6 +66,7 @@ public class BankServiceTest {
     }
 
     @Test
+    @DisplayName("Should transfer money successfully between accounts")
     void shouldTransferMoneySuccessfully() {
         BankAccount alice = new BankAccount("1", "Alice", 1000);
         BankAccount bob = new BankAccount("2", "Bob", 500);
@@ -79,6 +83,7 @@ public class BankServiceTest {
     }
 
     @Test
+    @DisplayName("Should throw an exception when insufficient funds for transfer")
     void shouldThrowExceptionWhenInsufficientFunds() {
         BankAccount alice = new BankAccount("1", "Alice", 100);
 
