@@ -73,4 +73,15 @@ public class BankAccount {
             System.out.println(transaction.getFormattedTransaction());
         }
     }
+
+    @Override
+    public String toString() {
+        return "BankAccount{" +
+                "id='" + id + '\'' +
+                ", owner='" + owner + '\'' +
+                ", balance=" + balance +
+                ", transactions=" + transactions +
+                '}';
+    }
+    
 }
